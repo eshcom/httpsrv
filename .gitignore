@@ -1,0 +1,11 @@
+*.beam
+/.rebar/
+/ebin/
+/logs/
+/log/
+/src/*.beam
+
+/deps/**/ebin/
+/deps/**/*.d
+erl_crash.dump
+*.log

@@ -1,0 +1,15 @@
+{application, httpsrv, [
+	{description, "Simple HTTP Server"},
+	{vsn, "1.0.0"},
+	{modules, [httpsrv,
+			   httpsrv_app,
+			   httpsrv_appsup,
+			   httpsrv_wrksup,
+			   httpsrv_worker,
+			   httpsrv_acceptor,
+			   httpsrv_filereader,
+			   httpsrv_env]},
+	{applications, [kernel, stdlib]},
+	{registered, [httpsrv_appsup, httpsrv_wrksup, httpsrv_filereader]},
+	{mod, {httpsrv_app, []}}
+]}.
