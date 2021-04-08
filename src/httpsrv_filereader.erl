@@ -39,7 +39,9 @@ terminate(_Reason, _State) ->
 read_file(FilePath) ->
 	case file:open(FilePath, [binary]) of
 		{ok, IoFile} ->
-			read_file_loop(IoFile);
+			Result = read_file_loop(IoFile),
+			file:close(IoFile),
+			Result;
 		{error, Reason} ->
 			{error_open, Reason}
 	end.

@@ -10,17 +10,6 @@ get_dicenv_str(Key, Def) ->
 	get_dicenv_val(Key, fun() ->
 		get_env_str(Key, Def) end).
 
-%~ env funcs
-get_env_str(Key, Def) ->
-	case application:get_env(Key) of
-		undefined -> Def;
-		{ok, Val} ->
-			case check_env_str(Val, true) of
-				"" -> Def;
-				TrimVal -> TrimVal
-			end
-	end.
-
 % internal functions
 get_dicenv_val(Key, EnvFun) ->
 	case get(Key) of
@@ -36,6 +25,16 @@ get_env_int(Key, Def) ->
 	case application:get_env(Key) of
 		undefined -> Def;
 		{ok, Val} -> check_env_int(Val)
+	end.
+
+get_env_str(Key, Def) ->
+	case application:get_env(Key) of
+		undefined -> Def;
+		{ok, Val} ->
+			case check_env_str(Val, true) of
+				"" -> Def;
+				TrimVal -> TrimVal
+			end
 	end.
 
 check_env_str(Val, Trim) when is_list(Val) ->
