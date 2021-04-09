@@ -35,6 +35,8 @@ handler(ClientSocket) ->
 		{tcp_closed, _} ->
 			%~ io:format("Client closed the socket.~n", []),
 			ok;
+		{_, ok} -> % response from filereader, 
+			handler(ClientSocket);
 		Unknown ->
 			io:format("Unknown message to srvworker: ~p~n", [Unknown]),
 			handler(ClientSocket)
