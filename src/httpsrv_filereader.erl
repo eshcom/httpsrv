@@ -9,15 +9,19 @@
 start_link() ->
 	gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
-read_file(FilePath, Timeout) ->
-	gen_server:call(?MODULE, {read_file, FilePath}, Timeout).
+read_file(FileName, Timeout) ->
+	gen_server:call(?MODULE, {read_file, FileName}, Timeout).
 
 % callback functions
 init([]) ->
-	{ok, {}}.
+	{ok, CurrDir} = file:get_cwd(),
+	DataPath = lists:concat([CurrDir, "/data/"]),
+	{ok, #frstate{data_path = DataPath}}.
 
-handle_call({read_file, FilePath}, _From, State) ->
-	{reply, read_file(FilePath), State};
+handle_call({read_file, FileName}, _From,
+			S = #frstate{data_path = DataPath}) ->
+	FilePath = lists:concat([DataPath, FileName]),
+	{reply, read_file(FilePath), S};
 
 handle_call(_Msg, _From, State) ->
 	{noreply, State}.
