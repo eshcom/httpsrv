@@ -3,7 +3,7 @@
 /ebin/
 /logs/
 /log/
-/src/*.beam
+/**/*.beam
 
 /deps/**/ebin/
 /deps/**/*.d
