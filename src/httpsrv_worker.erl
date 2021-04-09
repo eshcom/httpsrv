@@ -12,9 +12,9 @@ start_link(ClientSocket) ->
 handler(ClientSocket) ->
 	receive
 		{tcp, _, Request} ->
-			{ok, {http_request, Method, {abs_path, Query}, _}, _} =
+			{ok, {http_request, _Method, {abs_path, Query}, _}, _} =
 						erlang:decode_packet(http, Request, []),
-			io:format("~ts ~ts~n", [Method, Query]),
+			%~ io:format("~ts ~ts~n", [_Method, Query]),
 			Response = case string:prefix(Query, "/?file=") of
 							nomatch -> http_400("File name not specified.");
 							FileName ->
@@ -36,7 +36,8 @@ handler(ClientSocket) ->
 			gen_tcp:send(ClientSocket, Response),
 			handler(ClientSocket);
 		{tcp_closed, _} ->
-			io:format("Client closed the socket.~n", []);
+			%~ io:format("Client closed the socket.~n", []),
+			ok;
 		Unknown ->
 			io:format("Unknown message: ~p~n", [Unknown]),
 			handler(ClientSocket)
