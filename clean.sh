@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rm -fR src/*.beam ebin .rebar
+rm -fR src/*.beam test/*.beam ebin .rebar

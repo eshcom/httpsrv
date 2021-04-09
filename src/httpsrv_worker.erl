@@ -36,7 +36,7 @@ handler(ClientSocket) ->
 			%~ io:format("Client closed the socket.~n", []),
 			ok;
 		Unknown ->
-			io:format("Unknown message: ~p~n", [Unknown]),
+			io:format("Unknown message to srvworker: ~p~n", [Unknown]),
 			handler(ClientSocket)
 	after ?WAIT_TIMEOUT ->
 		ok
